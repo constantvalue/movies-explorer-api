@@ -63,7 +63,7 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 
 // роуты для кардконтроллера
-// app.use('/cards', require('./routes/cards'));
+app.use('/movies', require('./routes/movies'));
 
 // последний эндпоинт тест. Обработка несуществующего пути.
 app.use('/*', (req, res, next) => next(new NotFoundError('Страница не существует')));
