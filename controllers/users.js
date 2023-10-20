@@ -12,18 +12,18 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.addUser = (req, res, next) => {
   const {
-    name, about, avatar, password, email,
+    name, password, email,
   } = req.body;
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      name, about, avatar, password: hash, email,
+      name, password: hash, email,
     }))
     .then((user) => res.status(CREATED)
       .send({
       // res.send({ data: user })) - такой подход вызывает ошибки при проверке эндпоинтов.g
       // поэтому с помощью деструктуризации отправляю все кроме пароля.
-        email: user.email, name: user.name, about: user.about, avatar: user.avatar,
+        email: user.email, name: user.name,
 
       }))
     .catch((err) => {
@@ -60,8 +60,8 @@ module.exports.getUserById = (req, res, next) => {
 
 module.exports.updateProfile = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, {
-    name: req.body.email,
-    about: req.body.about,
+    email: req.body.email,
+    name: req.body.name,
   }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
