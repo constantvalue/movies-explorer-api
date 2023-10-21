@@ -21,13 +21,11 @@ module.exports.addUser = (req, res, next) => {
     }))
     .then((user) => res.status(CREATED)
       .send({
-      // res.send({ data: user })) - такой подход вызывает ошибки при проверке эндпоинтов.g
-      // поэтому с помощью деструктуризации отправляю все кроме пароля.
+
         email: user.email, name: user.name,
 
       }))
     .catch((err) => {
-      // ValidationError  -  это имя ошибки. Получил её с помощью console.log
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Некорректный запрос'));
         return;

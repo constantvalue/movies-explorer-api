@@ -3,15 +3,13 @@
 const router = require('express').Router();
 
 const {
-  getMovies, addMovie,
+  getMovies, addMovie, deleteMovie,
 } = require('../controllers/movies');
 
 router.get('/', getMovies);
 
-// Создаю фильм с новыми данными
 router.post('/', addMovie);
 
-// Удаляю сохранённый фильм по id
-// router.delete('/movies/:movieId', deleteMovie);
+router.delete('/:movieId', deleteMovie);
 
 module.exports = router;
