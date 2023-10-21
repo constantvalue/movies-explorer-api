@@ -7,7 +7,6 @@ const helmet = require('helmet');
 const { celebrate, errors, Joi } = require('celebrate');
 const { addUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const { regEx } = require('./constants');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/NotFoundError');
@@ -23,7 +22,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -35,10 +34,9 @@ app.use(requestLogger);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(6),
-    avatar: Joi.string().pattern(regEx),
+
   }),
 }), addUser);
 
@@ -62,10 +60,10 @@ app.use(auth);
 // роуты для юзерконтроллера
 app.use('/users', require('./routes/users'));
 
-// роуты для кардконтроллера
+// роуты для мувиконтроллера
 app.use('/movies', require('./routes/movies'));
 
-// последний эндпоинт тест. Обработка несуществующего пути.
+// Обработка несуществующего пути.
 app.use('/*', (req, res, next) => next(new NotFoundError('Страница не существует')));
 
 app.use(errorLogger);
