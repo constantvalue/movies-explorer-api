@@ -1,7 +1,6 @@
-const UrlPattern = require('../constants');
 const { celebrate, Joi } = require('celebrate');
 const router = require('express').Router();
-
+const UrlPattern = require('../utils/UrlPattern');
 
 const {
   getMovies, addMovie, deleteMovie,
@@ -33,4 +32,3 @@ router.delete('/:movieId', celebrate({
 }), deleteMovie);
 
 module.exports = router;
-

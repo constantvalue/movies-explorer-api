@@ -6,7 +6,7 @@ const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const {
   CREATED,
-} = require('../constants');
+} = require('../utils/error_codes');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 

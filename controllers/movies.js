@@ -5,7 +5,7 @@ const BadRequestError = require('../errors/BadRequestError');
 
 const {
   CREATED,
-} = require('../constants');
+} = require('../utils/error_codes');
 
 module.exports.addMovie = (req, res, next) => {
   const {

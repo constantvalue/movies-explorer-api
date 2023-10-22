@@ -15,7 +15,7 @@ router.use('/signin', signinRoutes);
 router.use(auth);
 
 router.use('/movies', movieRoutes);
-router.use('users', userRoutes);
+router.use('/users', userRoutes);
 
 // Обработка несуществующего пути.
 router.use('/*', (req, res, next) => next(new NotFoundError('Страница не существует')));
