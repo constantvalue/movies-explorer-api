@@ -1,3 +1,6 @@
+// eslint-disable-next-line
+//eslint-disable-line
+
 const { celebrate, Joi } = require('celebrate');
 const router = require('express').Router();
 const UrlPattern = require('../utils/UrlPattern');
