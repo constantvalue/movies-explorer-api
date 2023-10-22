@@ -12,7 +12,8 @@ router.get('/me', getUserById);
 router.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    email: Joi.string().min(2).max(30),
+    //добавил проверку на email
+    email: Joi.string().min(2).max(30).email(),
   }),
 }), updateProfile);
 

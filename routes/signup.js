@@ -4,7 +4,6 @@ const router = require('express').Router();
 
 const { addUser } = require('../controllers/users');
 
-
 router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -13,6 +12,5 @@ router.post('/', celebrate({
 
   }),
 }), addUser);
-
 
 module.exports = router;

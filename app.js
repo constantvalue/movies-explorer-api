@@ -4,12 +4,9 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const {  errors  } = require('celebrate');
+const { errors } = require('celebrate');
 const routes = require('./routes/index');
-// const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000 } = process.env;
 
@@ -27,52 +24,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useUnifiedTopology: true,
 });
 
-// эти роуты не требуют защиты авторизацией.
-
 app.use(requestLogger);
 
 app.use(routes);
-// app.post('/signup', celebrate({
-//   body: Joi.object().keys({
-//     name: Joi.string().min(2).max(30),
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required().min(6),
-
-//   }),
-// }), addUser);
-
-
-// app.post('/signin', celebrate({
-//   body: Joi.object().keys({
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required().min(6),
-//   }),
-// }), login);
-
-
-
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
-
-// // все что идет после этого мидлвара - будет защищено авторизацией
-// app.use(auth);
-
-// // роуты для юзерконтроллера
-// app.use('/users', require('./routes/users'));
-
-// // роуты для мувиконтроллера
-// app.use('/movies', require('./routes/movies'));
-
-// Обработка несуществующего пути.
-app.use('/*', (req, res, next) => next(new NotFoundError('Страница не существует')));
 
 app.use(errorLogger);
 
-// обрабатываем ошибки которые генерирует celebrate.
-// Этот метод вернет тело ошибки с указанием причины ошибки валидации.
 app.use(errors());
 
 app.use((err, req, res, next) => {
